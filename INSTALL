@@ -1,0 +1,26 @@
+
+Note: 
+   The necessary Raspberry binaries and the cross compiler/assembler are 
+   downloaded from https://github.com/raspberrypi    
+
+Download the RPI crosscompiler toolchain to directory tools-master:
+ 
+ > make toolchain
+
+Download binaries for RPI boot to directory sdcard:
+  
+ > make binaries
+
+Then compile:
+  
+ > make
+
+Install resulting kernel.img to sdcard directory:
+ 
+ > make install
+
+Then copy the contents of ./sdcard to a sdcard and boot RPI from it.
+
+
+
+

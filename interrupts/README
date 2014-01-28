@@ -1,0 +1,15 @@
+
+Handling undefined instructions
+===============================
+
+Main program causes a undefined instruction by attempting to use the floating point without initializing it.
+
+Path:
+undefined instruction --> 
+hand_undef --> 
+intr_undef --> 
+itr_undef --> 
+morsecode "UND" is signalled on OK-LED
+
+
+

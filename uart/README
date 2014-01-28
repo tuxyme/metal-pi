@@ -1,0 +1,15 @@
+
+Running this UART requires init_uart_clock=16000000 in config.txt file on SD-card
+
+preparation
+-------
+build environment - see INSTALL in parent directory
+serial connection to the Raspberry PI
+
+> make
+> stty -F /dev/ttyUSB0 115200
+copy kernel.img to SD-card
+start PI
+start minicom
+minicom shows textlines repeating every 2s
+the OK LED on the Raspberry PI flashes

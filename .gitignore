@@ -1,0 +1,27 @@
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+*.bin
+
+# Libraries
+*.lib
+*.a
+
+# Shared objects
+*.so
+*.so.*
+
+# Executables
+*.out
+*.hex
+*.img
+
+# misc
+*.dump
+*.zip
+
+# Directories
+tools-master/
+
