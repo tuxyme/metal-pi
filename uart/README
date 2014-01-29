@@ -8,6 +8,7 @@ serial connection to the Raspberry PI
 
 > make
 > stty -F /dev/ttyUSB0 115200
+
 copy kernel.img to SD-card
 start PI
 start minicom

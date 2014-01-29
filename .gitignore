@@ -21,6 +21,7 @@
 # misc
 *.dump
 *.zip
+*.raw
 
 # Directories
 tools-master/

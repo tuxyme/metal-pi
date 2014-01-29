@@ -79,6 +79,9 @@ Sigrok running the Raspalyzer showing off assembly vs Python speed:
 My First Screenshot, 7 min. of 115200 baud hard work by framebuffer/main.c:
   http://tuxbabe.eu/screenshot.png
 
+A screenshot showing the debug out of a succesful sample run:
+  http://tuxbabe.eu/samplerun.png
+
 
 GPIO pins
 =========
@@ -138,7 +141,18 @@ Compile and install
      Smallest card you can find will do
      1st partition is FAT32 or FAT16
 3. Copy contents of directory sdcard to SD-card
-     
+
+
+Download and run binaries
+=========================
+If you don't want to download and install this repository and the 200 MByte
+toolchain needed to compile this project feel free to use the binaries
+in the archive referenced below. Please check the MD5 checksum to verify
+this archive is the same I made available.
+   
+   http://tuxbabe.eu/raspalyzer_bin_20140129.tar.gz 
+   MD5: 63f761d81d241a5cfbd809520e0f742e
+
 
 Testrun
 =======
