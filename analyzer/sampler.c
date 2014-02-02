@@ -191,7 +191,7 @@ float abs(float value)
 
 void sampler_go()
 {
-   uint32_t samplecnt, idx, t0, t1, div, delay, packet;
+   uint32_t samplecnt, t0, t1, div, delay, packet;
    float freq;
       
    samplecnt = sampler.readcnt4 * 4;
@@ -294,12 +294,13 @@ void sampler_go()
       uint32_t enable = 0x200;
       PUT32(ARM_TIMER_CTL, (div << 16) | enable);
 
+      okled(0); // make sure pin mode is set and LED is off
+
       if (trigger[0].mask)
       {
          console_write_bin("Sampler - trigger mask  : ", trigger[0].mask);
          console_write_bin("Sampler - trigger values: ", trigger[0].values);         
          enable = waitfor(GPLEV0, to_register(trigger[0].mask), to_register(trigger[0].values));
-         console_write_bin("Sampler - trigger event : ", to_packet(enable));
       }
 
       okled(1);
@@ -308,6 +309,9 @@ void sampler_go()
       t1 = GET32(SYSTCLO);
       okled(0);
       
+      if (trigger[0].mask)
+         console_write_bin("Sampler - trigger event was : ", to_packet(enable));
+      
       t0 = (t1 - t0);
       if (t0)
       {
@@ -315,16 +319,16 @@ void sampler_go()
          console_write_dec("Sampler - effective sampling freq (Hz): ", (uint32_t)freq);
       }
 
-      idx = 0; 
       t0 = 1;
-      while (idx < samplecnt)
+      // looks like sigrok expects buffer dump from end down
+      while (samplecnt--)
       {
-         if (idx % 500 == 0)
+         if (samplecnt % 500 == 0)
          {
             t0 = !t0;
             okled(t0);
          }
-         packet = to_packet(buffer[idx++]);
+         packet = to_packet(buffer[samplecnt]);
          if ((sampler.groups & 1) == 0)
             uart_send(packet & 0xFF);
          if ((sampler.groups & 2) == 0)

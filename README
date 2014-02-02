@@ -9,8 +9,8 @@ Sniffer and Analyzer to be.
 Features:
 - max samplerate 3 MHz
 - max 16 probes
-- Compatible with sigrok
-- Talks to sigrok via serial connection
+- compatible with sigrok
+- talks to sigrok via serial connection
 
 Now these features relate to the sniffer part of an analyzer and even running
 on bare metal the performance of the PI isn't too great compared to even 
@@ -38,6 +38,7 @@ is used by the Open Bench Logic Sniffer and the Raspalizer presents itself
 as OLS device to sigrok. SUMP is documented here: 
   
   http://www.sump.org/projects/analyzer/protocol
+  http://dangerousprototypes.com/docs/The_Logic_Sniffer's_extended_SUMP_protocol
 
 The Raspalyzer has partial SUMP support featuring simple triggering, 
 selection of probes and of course selection of sample frequency and duration.
@@ -49,7 +50,7 @@ With a 115200 baud serial connection a sample size this big takes
 considerable transmission time. This reasoning doesn't hold in standalone 
 operation. And sigrok can be compiled with support for higher baudrates (see
 below) so perhaps I should send sigrok a patch and remove the sample memory
-limit.
+limit (update: SUMP supports max 0xFFFF * 4 samples).
 
 
 Learning
@@ -81,8 +82,17 @@ My First Screenshot, 7 min. of 115200 baud hard work by framebuffer/main.c:
 
 A screenshot showing the debug out of a succesful sample run:
   http://tuxbabe.eu/samplerun.png
+  
+Writing the Raspberry PI logo to a Nokia 3310 LCD
+  http://tuxbabe.eu/images/lcd_sample1.png
+  
+Setting cursor to 0,0 on a Nokia 3310 LCD
+  http://tuxbabe.eu/images/lcd_sample3.png
 
+For more see 
+  http://http://tuxbabe.eu/raspalyzer.html
 
+  
 GPIO pins
 =========
 The GPIO pins used as probes can handle 3.3 Volt. TTL logic (your average 
@@ -108,7 +118,7 @@ If you need help with that, check Adafruit.
 *  rev 1: pin 0,1 (I2C)
 *  rev 2: pin 2,3 (I2C)
 
- 
+
 Serial connection between sigrok PC and Raspberry PI
 ====================================================
 The serial connection to the PI connects to GPIO 14/15 (P1 header pin 8 & 10) 
@@ -194,3 +204,8 @@ to test the code in these directories. Some of these programs provide proper
 handling of undefined instructions, resulting in the address of the offending
 instruction being keyed out on the OK-LED in morsecode. 73, Eric
 
+- Looks like sigrok-cli expects the samplebuffer to be sent last sample first
+- SUMP has two bytes for the readcount/4 field. That results in a maximum of 
+  0xFFFF x 4 = 262140 samples. Beyond that, libsigrok just sends the lower
+  two bytes.
+  
